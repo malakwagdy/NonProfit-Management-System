@@ -1,5 +1,5 @@
 package documents;
-
+import UserOrgManagement.Volunteer;
 import java.time.LocalDate;
 
 public class VolunteerCertificate extends Document {

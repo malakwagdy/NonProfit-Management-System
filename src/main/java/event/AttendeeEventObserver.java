@@ -1,7 +1,7 @@
 package event;
 
 import communication.CommunicationManager;
-import users.User;
+import UserOrgManagement.User;
 
 public class AttendeeEventObserver implements EventObserver {
     private EventRegistration registration;

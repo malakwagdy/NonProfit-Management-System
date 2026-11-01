@@ -1,15 +1,16 @@
 package event;
 
+import UserOrgManagement.User;
 import communication.CommunicationManager;
-import users.Administrator;
-import users.Donor;
-import users.User;
+import UserOrgManagement.Administrator;
+import UserOrgManagement.Donor;
+import UserOrgManagement.User;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class EventManager {
-    private List<Event> events;
+    private ArrayList<Event> events;
     private CommunicationManager communicationManager;
     private Set<Integer> remindedEventIds; // prevents sending the same reminder twice
 
@@ -68,12 +69,12 @@ public class EventManager {
         return null;
     }
 
-    public List<Event> getAllEvents() {
-        return new ArrayList<>(events); // copy, so callers can't modify the internal list
+    public ArrayList<Event> getAllEvents() {
+        return new ArrayList<>(events); // copy, so callers can't modify the internal ArrayList
     }
 
-    public List<Event> getUpcomingEvents() {
-        List<Event> result = new ArrayList<>();
+    public ArrayList<Event> getUpcomingEvents() {
+        ArrayList<Event> result = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         for (Event event : events) {
             if (event.getEventDate().isAfter(now) && !isClosed(event)) {
@@ -84,8 +85,8 @@ public class EventManager {
         return result;
     }
 
-    public List<Event> getEventsByStatus(EventStatus status) {
-        List<Event> result = new ArrayList<>();
+    public ArrayList<Event> getEventsByStatus(EventStatus status) {
+        ArrayList<Event> result = new ArrayList<>();
         for (Event event : events) {
             if (event.getEventStatus() == status) {
                 result.add(event);
@@ -94,8 +95,8 @@ public class EventManager {
         return result;
     }
 
-    public List<Event> getEventsByType(EventType type) {
-        List<Event> result = new ArrayList<>();
+    public ArrayList<Event> getEventsByType(EventType type) {
+        ArrayList<Event> result = new ArrayList<>();
         for (Event event : events) {
             if (event.getEventType() == type) {
                 result.add(event);
@@ -133,7 +134,7 @@ public class EventManager {
         event.addObserver(new DonorEventObserver(donor, communicationManager));
     }
 
-    public List<EventRegistration> getEventRegistrations(int eventId) {
+    public ArrayList<EventRegistration> getEventRegistrations(int eventId) {
         Event event = getEventById(eventId);
         if (event == null) {
             return new ArrayList<>();

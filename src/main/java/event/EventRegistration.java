@@ -1,6 +1,8 @@
 package event;
 
-import users.User;
+
+
+import UserOrgManagement.User;
 
 import java.time.LocalDateTime;
 import java.util.EnumMap;

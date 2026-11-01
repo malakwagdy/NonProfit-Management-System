@@ -1,17 +1,17 @@
 package event;
 
 import communication.CommunicationManager;
-import users.Volunteer;
-import volunteer.AssignmentStatus;
-import volunteer.VolunteerAssignment;
+import UserOrgManagement.Volunteer;
+import VolunteerManagement.AssignmentStatus;
+import VolunteerManagement.volunteerAssignment;
 
 public class VolunteerEventObserver implements EventObserver {
-    private Volunteer voluteer;
-    private VolunteerAssignment assignment;
+    private Volunteer volunteer;
+    private volunteerAssignment assignment;
     private CommunicationManager communicationManager;
 
-    public VolunteerEventObserver(Volunteer volunteer, VolunteerAssignment assignment, CommunicationManager communicationManager) {
-        this.voluteer = volunteer;
+    public VolunteerEventObserver(Volunteer volunteer, volunteerAssignment assignment, CommunicationManager communicationManager) {
+        this.volunteer = volunteer;
         this.assignment = assignment;
         this.communicationManager = communicationManager;
     }

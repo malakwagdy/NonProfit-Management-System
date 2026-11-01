@@ -1,8 +1,8 @@
 package event;
 
+import UserOrgManagement.Donor;
 import communication.CommunicationManager;
-import users.Donor;
-import volunteer.AssignmentStatus;
+import VolunteerManagement.AssignmentStatus;
 
 public class DonorEventObserver implements EventObserver {
     private Donor donor;

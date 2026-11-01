@@ -1,10 +1,11 @@
 package event;
 
 
-import users.User;
+import UserOrgManagement.User;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class Event implements EventSubject{
     private int eventId;
@@ -14,10 +15,10 @@ public class Event implements EventSubject{
     private LocalDateTime eventDate;
     private String location;
     private int capacity;
-    private List<String> requiredSkills;
+    private ArrayList<String> requiredSkills;
     private EventStatus eventStatus;
-    private List<EventObserver> observers;
-    private List<EventRegistration> registrations;
+    private ArrayList<EventObserver> observers;
+    private ArrayList<EventRegistration> registrations;
 
     public Event(int eventId, String eventName, String description, EventType eventType, LocalDateTime eventDate, String location, int capacity) {
         this.eventId = eventId;
@@ -73,7 +74,7 @@ public class Event implements EventSubject{
         requiredSkills.add(skill);
     }
 
-    public List<String> getRequiredSkills() {
+    public ArrayList<String> getRequiredSkills() {
         return requiredSkills;
     }
 
@@ -109,8 +110,7 @@ public class Event implements EventSubject{
         }
 
         // 4. Create the registration (constructor generates the ticket number)
-        EventRegistration registration =
-                new EventRegistration(this, user);
+        EventRegistration registration = new EventRegistration(this, user);
 
         // 5. Store it and return it
         registrations.add(registration);
@@ -127,7 +127,7 @@ public class Event implements EventSubject{
         return false;
     }
 
-    public List<EventRegistration> getRegistrations() {
+    public ArrayList<EventRegistration> getRegistrations() {
         return registrations;
     }
 

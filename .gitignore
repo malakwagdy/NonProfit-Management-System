@@ -5,15 +5,16 @@ target/
 .kotlin
 .mvn
 
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
-.idea
 
 ### Eclipse ###
 .apt_generated
@@ -43,3 +44,11 @@ pom.xml
 
 ### Mac OS ###
 .DS_Store
+
+.mvn/
+mvnw
+mvnw.cmd
+pom.xml
+
+src/main/resources
+src/main/java/module-info.java

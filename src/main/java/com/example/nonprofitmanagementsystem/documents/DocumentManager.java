@@ -2,6 +2,10 @@ package com.example.nonprofitmanagementsystem.documents;
 import java.util.List;
 import java.util.ArrayList;
 import com.example.nonprofitmanagementsystem.config.ConfigurationManager;
+import com.example.nonprofitmanagementsystem.donation.DonationManager;
+import com.example.nonprofitmanagementsystem.donation.Donation;
+import com.example.nonprofitmanagementsystem.UserOrgManagement.Volunteer;
+import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
 
 public class DocumentManager {
     private List<Document> documents = new ArrayList<>();

@@ -1,4 +1,5 @@
 package com.example.nonprofitmanagementsystem.documents;
+import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
 
 public class TaxDocument extends Document {
     private Donor donor;

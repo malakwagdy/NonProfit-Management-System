@@ -1,4 +1,5 @@
 package com.example.nonprofitmanagementsystem.documents;
+import com.example.nonprofitmanagementsystem.donation.Donation;
 
 public class DonationReceipt extends Document {
     private Donation donation;

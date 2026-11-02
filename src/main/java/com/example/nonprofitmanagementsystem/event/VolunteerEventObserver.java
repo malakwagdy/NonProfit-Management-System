@@ -1,6 +1,6 @@
 package com.example.nonprofitmanagementsystem.event;
 
-import communication.CommunicationManager;
+import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 import com.example.nonprofitmanagementsystem.UserOrgManagement.Volunteer;
 import com.example.nonprofitmanagementsystem.VolunteerManagement.AssignmentStatus;
 import com.example.nonprofitmanagementsystem.VolunteerManagement.volunteerAssignment;
@@ -28,6 +28,6 @@ public class VolunteerEventObserver implements EventObserver {
                 + message + "\n"
                 + "Date: " + event.getEventDate() + " | Location: " + event.getLocation();
 
-        communicationManager.send(volunteer, "Update","Event Update",text);
+        communicationManager.notifyUser(volunteer, "Event Update", text);
     }
 }

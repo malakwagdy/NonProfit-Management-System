@@ -27,6 +27,9 @@ public class Event implements EventSubject{
         this.eventDate = eventDate;
         this.location = location;
         this.capacity = capacity;
+        this.requiredSkills = new ArrayList<>();
+        this.observers = new ArrayList<>();
+        this.registrations = new ArrayList<>();
     }
 
     public int getEventId() {
@@ -82,10 +85,12 @@ public class Event implements EventSubject{
         this.description = description;
         this.eventDate = eventDate;
         this.location = location;
+        notifyObservers("The event details have been updated.");
     }
 
     public void updateStatus(EventStatus eventStatus){
         this.eventStatus = eventStatus;
+        notifyObservers("The event status is now " + eventStatus + ".");
     }
 
     public EventRegistration registerParticipant(User user) {

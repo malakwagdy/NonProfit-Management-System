@@ -1,7 +1,7 @@
 package com.example.nonprofitmanagementsystem.event;
 
 import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
-import communication.CommunicationManager;
+import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 import com.example.nonprofitmanagementsystem.UserOrgManagement.Administrator;
 import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
 

@@ -1,5 +1,7 @@
 package com.example.nonprofitmanagementsystem.donation;
 
+import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
+
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -71,7 +73,7 @@ public class DonationManager {
         boolean success = strategy.processDonation(donation);
         if (success) {
             donation.getDonor().addToTotal(donation.getAmount());
-//            communicationManager.sendDonationConfirmation(donation);
+            communicationManager.sendDonationConfirmation(donation);
         }
         return success;
     }

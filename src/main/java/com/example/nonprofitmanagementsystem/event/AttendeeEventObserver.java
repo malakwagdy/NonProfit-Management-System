@@ -1,6 +1,6 @@
 package com.example.nonprofitmanagementsystem.event;
 
-import communication.CommunicationManager;
+import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
 
 public class AttendeeEventObserver implements EventObserver {
@@ -26,7 +26,7 @@ public class AttendeeEventObserver implements EventObserver {
                 + message + "\n"
                 + "Date: " + event.getEventDate() + " | Location: " + event.getLocation() + "\n"
                 + "Your ticket number: " + registration.getTicketNumber();
-        communicationManager.send(attendee, "Event Details", "Reminder for Upcoming Event",text);
+        communicationManager.notifyUser(attendee, "Event Details", text);
 
     }
 }

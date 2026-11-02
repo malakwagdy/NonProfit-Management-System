@@ -1,5 +1,7 @@
 package com.example.nonprofitmanagementsystem.UserOrgManagement;
 
+import com.example.nonprofitmanagementsystem.communication.NotificationChannel;
+
 import java.time.LocalDateTime;
 
 public abstract class User {
@@ -12,7 +14,7 @@ public abstract class User {
     private String address;
     private LocalDateTime registrationDate;
     private boolean active;
-    private String preferredChannelId;
+    private NotificationChannel preferredChannel;
 
     public User(int userId, String firstName, String lastName, String email, String phoneNumber, String passwordHash, String address) {
         this.userId = userId;
@@ -22,6 +24,7 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
         this.address = address;
+        this.preferredChannel = NotificationChannel.EMAIL;
         this.registrationDate = LocalDateTime.now();
         this.active = true;
         this.preferredChannelId = new String();
@@ -97,12 +100,12 @@ public abstract class User {
         return active;
     }
 
-    public String getPreferredChannelId() {
-        return preferredChannelId;
+    public NotificationChannel getPreferredChannel() {
+        return preferredChannel;
     }
 
-    public void setPreferredChannelId(String preferredChannelId) {
-        this.preferredChannelId = preferredChannelId;
+    public void setPreferredChannel(NotificationChannel preferredChannel) {
+        this.preferredChannel = preferredChannel;
     }
     public void updateProfile(String firstName, String lastName, String email, String phoneNumber, String address) {
         this.firstName = firstName;

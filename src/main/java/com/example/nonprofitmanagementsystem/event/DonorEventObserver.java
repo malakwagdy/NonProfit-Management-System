@@ -1,7 +1,7 @@
 package com.example.nonprofitmanagementsystem.event;
 
 import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
-import communication.CommunicationManager;
+import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 
 public class DonorEventObserver implements EventObserver {
     private Donor donor;
@@ -23,7 +23,7 @@ public class DonorEventObserver implements EventObserver {
                 + message + "\n"
                 + "Date: " + event.getEventDate() + " | Location: " + event.getLocation();
 
-        communicationManager.send(donor, "Upcoming Fundraiser", "Fundraiser Event Details",text);
+        communicationManager.notifyUser(donor, "Fundraiser Event Details", text);
 
     }
 }

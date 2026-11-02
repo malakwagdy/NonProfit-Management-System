@@ -3,6 +3,7 @@ package com.example.nonprofitmanagementsystem.VolunteerManagement;
 import com.example.nonprofitmanagementsystem.UserOrgManagement.Administrator;
 import com.example.nonprofitmanagementsystem.UserOrgManagement.Volunteer;
 
+import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 import com.example.nonprofitmanagementsystem.event.Event;
 
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 public class VolunteerManager {
     private ArrayList<Volunteer> Volunteers;
     private ArrayList<volunteerAssignment> assignments;
-    private communicationManager communicationManager;
+    private CommunicationManager communicationManager;
 
-    public VolunteerManager(communicationManager communicationManager) {
+    public VolunteerManager(CommunicationManager communicationManager) {
         this.Volunteers = new ArrayList<>();
         this.communicationManager = communicationManager;
         this.assignments = new ArrayList<>();
@@ -88,17 +89,17 @@ public class VolunteerManager {
         volunteerAssignment assignment = new volunteerAssignment(assignmentId, volunteer, event, task, event.getEventDate());
         assignments.add(assignment);
         // Notify the volunteer about the assignment
-        communicationManager.sendNotification(volunteer, "You have been assigned to the event: " + event.getEventName() + " for task: " + task);
+        communicationManager.notifyUser(volunteer, "Volunteer Assignment", "You have been assigned to the event: " + event.getEventName() + " for task: " + task);
         assignments.add(assignment);
     }
 
     public void removeAssignment(volunteerAssignment assignment) {
         assignments.remove(assignment);
-        communicationManager.sendNotification(assignment.getVolunteer(), "Your assignment for the event: " + assignment.getEvent().getEventName() + " has been removed.");
+        communicationManager.notifyUser(assignment.getVolunteer(), "Volunteer Assignment Removed", "Your assignment for the event: " + assignment.getEvent().getEventName() + " has been removed.");
     }
     public void recordVolunteerHours(volunteerAssignment assignment, double hours) {
         assignment.recordHoursCompleted(hours);
-        communicationManager.sendNotification(assignment.getVolunteer(), "You have recorded " + hours + " hours for the event: " + assignment.getEvent().getEventName());
+        communicationManager.notifyUser(assignment.getVolunteer(), "Volunteer Hours Recorded", "You have recorded " + hours + " hours for the event: " + assignment.getEvent().getEventName());
     }
     public ArrayList<volunteerAssignment> getAssignmentsForVolunteer(Volunteer volunteer) {
         ArrayList<volunteerAssignment> userAssignments = new ArrayList<>();

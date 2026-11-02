@@ -22,6 +22,9 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.passwordHash = passwordHash;
         this.address = address;
+        this.registrationDate = LocalDateTime.now();
+        this.active = true;
+        this.preferredChannelId = new String();
     }
 
     public int getUserId() {

@@ -19,6 +19,6 @@ public class Donor extends User {
         return totalDonated;
     }
     public void addToTotal(double totalDonated) {
-        this.totalDonated = totalDonated;
+        this.totalDonated += totalDonated;
     }
 }

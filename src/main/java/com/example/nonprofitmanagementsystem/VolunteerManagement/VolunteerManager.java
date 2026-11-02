@@ -80,7 +80,7 @@ public class VolunteerManager {
         }
         for (String skill : event.getRequiredSkills()) {
             if (!volunteer.hasSkill(skill)) {
-                throw new IllegalArgumentException("Volunteer does not have the required skills for this com.example.nonprofitmanagementsystem.event.");
+                throw new IllegalArgumentException("Volunteer does not have the required skills for this event.");
             }
         }
         // Create a new assignment
@@ -88,17 +88,17 @@ public class VolunteerManager {
         volunteerAssignment assignment = new volunteerAssignment(assignmentId, volunteer, event, task, event.getEventDate());
         assignments.add(assignment);
         // Notify the volunteer about the assignment
-        communicationManager.sendNotification(volunteer, "You have been assigned to the com.example.nonprofitmanagementsystem.event: " + event.getEventName() + " for task: " + task);
+        communicationManager.sendNotification(volunteer, "You have been assigned to the event: " + event.getEventName() + " for task: " + task);
         assignments.add(assignment);
     }
 
     public void removeAssignment(volunteerAssignment assignment) {
         assignments.remove(assignment);
-        communicationManager.sendNotification(assignment.getVolunteer(), "Your assignment for the com.example.nonprofitmanagementsystem.event: " + assignment.getEvent().getEventName() + " has been removed.");
+        communicationManager.sendNotification(assignment.getVolunteer(), "Your assignment for the event: " + assignment.getEvent().getEventName() + " has been removed.");
     }
     public void recordVolunteerHours(volunteerAssignment assignment, double hours) {
         assignment.recordHoursCompleted(hours);
-        communicationManager.sendNotification(assignment.getVolunteer(), "You have recorded " + hours + " hours for the com.example.nonprofitmanagementsystem.event: " + assignment.getEvent().getEventName());
+        communicationManager.sendNotification(assignment.getVolunteer(), "You have recorded " + hours + " hours for the event: " + assignment.getEvent().getEventName());
     }
     public ArrayList<volunteerAssignment> getAssignmentsForVolunteer(Volunteer volunteer) {
         ArrayList<volunteerAssignment> userAssignments = new ArrayList<>();

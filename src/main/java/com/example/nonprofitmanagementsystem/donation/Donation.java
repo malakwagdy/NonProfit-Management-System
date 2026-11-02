@@ -1,5 +1,6 @@
 package com.example.nonprofitmanagementsystem.donation;
 
+import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
 import java.time.LocalDateTime;
 
 public abstract class Donation {

@@ -1,41 +1,63 @@
 package com.example.nonprofitmanagementsystem.UserOrgManagement;
 
+import com.example.nonprofitmanagementsystem.beneficiary.NeedCategory;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Beneficiary extends User {
-    private ArrayList<String> needs;
+    private List<NeedCategory> needs;
     private int familySize;
-  //  eligibilityStatus eligibilityStatus;
+    private EligibilityStatus eligibilityStatus;
 
-    public Beneficiary(int userId, String firstName, String lastName, String email, String phoneNumber, String passwordHash, String address) {
+    public Beneficiary(int userId, String firstName, String lastName, String email,
+                       String phoneNumber, String passwordHash, String address, int familySize) {
         super(userId, firstName, lastName, email, phoneNumber, passwordHash, address);
-        this.needs = new ArrayList<>();
-        this.familySize = 0;
+        if (userId <= 0) {
+            throw new IllegalArgumentException("User ID must be positive");
+        }
+        updateFamilySize(familySize);
+        needs = new ArrayList<>();
+        eligibilityStatus = EligibilityStatus.PENDING_REVIEW;
     }
 
-    public void addNeed(String need) {
-        this.needs.add(need);
+    public void addNeed(NeedCategory need) {
+        if (need == null) {
+            throw new IllegalArgumentException("Need cannot be null");
+        }
+        for (NeedCategory existing : needs) {
+            if (existing.getNeedCategoryId() == need.getNeedCategoryId()) {
+                throw new IllegalArgumentException("Need already added");
+            }
+        }
+        needs.add(need);
     }
 
-    public void removeNeed(String need) {
-        this.needs.remove(need);
+    public boolean removeNeed(int needId) {
+        for (int i = 0; i < needs.size(); i++) {
+            if (needs.get(i).getNeedCategoryId() == needId) {
+                needs.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public ArrayList<String> getNeeds() {
-        return needs;
+    public List<NeedCategory> getNeeds() { return new ArrayList<>(needs); }
+    public int getFamilySize() { return familySize; }
+    public EligibilityStatus getEligibilityStatus() { return eligibilityStatus; }
+
+    public void updateFamilySize(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Family size must be positive");
+        }
+        familySize = size;
     }
 
-    public int getFamilySize() {
-        return familySize;
+    // Call through BeneficiaryManager when checking administrator permissions.
+    public void updateEligibilityStatus(EligibilityStatus status) {
+        if (status == null) {
+            throw new IllegalArgumentException("Eligibility status cannot be null");
+        }
+        eligibilityStatus = status;
     }
-
-    public void updateFamilySize(int familySize) {
-        this.familySize = familySize;
-    }
-//    public void updateEligibilityStatus(eligibilityStatus eligibilityStatus) {
-//        this.eligibilityStatus = eligibilityStatus;
-//    }
-//    public eligibilityStatus getEligibilityStatus() {
-//        return eligibilityStatus;
-//    }
 }

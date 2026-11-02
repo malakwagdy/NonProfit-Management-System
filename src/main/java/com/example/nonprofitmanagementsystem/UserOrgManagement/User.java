@@ -25,6 +25,9 @@ public abstract class User {
         this.passwordHash = passwordHash;
         this.address = address;
         this.preferredChannel = NotificationChannel.EMAIL;
+        this.registrationDate = LocalDateTime.now();
+        this.active = true;
+        this.preferredChannelId = new String();
     }
 
     public int getUserId() {

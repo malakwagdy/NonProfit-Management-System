@@ -27,9 +27,10 @@ public class Event implements EventSubject{
         this.eventDate = eventDate;
         this.location = location;
         this.capacity = capacity;
-        this.requiredSkills = new ArrayList<>();
-        this.observers = new ArrayList<>();
-        this.registrations = new ArrayList<>();
+        this.requiredSkills = new ArrayList<String>();
+        this.eventStatus = EventStatus.SCHEDULED;
+        this.observers = new ArrayList<EventObserver>();
+        this.registrations = new ArrayList<EventRegistration>();
     }
 
     public int getEventId() {
@@ -85,12 +86,12 @@ public class Event implements EventSubject{
         this.description = description;
         this.eventDate = eventDate;
         this.location = location;
-        notifyObservers("The event details have been updated.");
+        notifyObservers("Event details updated:\n Event Name: " + name + "\nEvent Description: " + description + "\nEvent Date: " + eventDate + "\nEvent Location" + location);
     }
 
     public void updateStatus(EventStatus eventStatus){
         this.eventStatus = eventStatus;
-        notifyObservers("The event status is now " + eventStatus + ".");
+        notifyObservers("Event Status updated to " + eventStatus);
     }
 
     public EventRegistration registerParticipant(User user) {

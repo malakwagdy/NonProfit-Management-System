@@ -1,5 +1,7 @@
 package com.example.nonprofitmanagementsystem.donation;
 
+import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
+
 public class OnlineDonation extends Donation {
     private String paymentPlatform;
     private String transactionId;

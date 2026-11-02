@@ -21,6 +21,9 @@ public class EventRegistration {
         this.registrationId = nextId++;
         this.event = event;
         this.participant = participant;
+        this.registrationDate = LocalDateTime.now();
+        this.ticketNumber = generateTicketNumber();
+        this.attendanceStatus = AttendanceStatus.REGISTERED;
     }
     public int getRegistrationId() {
         return registrationId;
@@ -51,11 +54,20 @@ public class EventRegistration {
     private static final Map<EventType, Integer> ticketCounters = new EnumMap<>(EventType.class);
     private String generateTicketNumber(){
         EventType type = event.getEventType();
-        String prefix = switch (type) {
-            case FUNDRAISER -> "FUND";
-            case WORKSHOP -> "WORK";
-            case OUTREACH_PROGRAM -> "OUTR";
-            case OTHER -> "OTHR";
+        String prefix = new String();
+        switch (type) {
+            case FUNDRAISER:
+                prefix = "FUND";
+                break;
+            case WORKSHOP:
+                prefix = "WORK";
+                break;
+            case OUTREACH_PROGRAM:
+                prefix = "OUTR";
+                break;
+            case OTHER:
+                prefix = "OTHR";
+                break;
         };
         int nextNumber = ticketCounters.merge(type, 1, Integer::sum);
         return String.format("%s-%04d", prefix, nextNumber);

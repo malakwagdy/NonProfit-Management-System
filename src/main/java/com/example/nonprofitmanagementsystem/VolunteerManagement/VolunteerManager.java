@@ -81,7 +81,7 @@ public class VolunteerManager {
         }
         for (String skill : event.getRequiredSkills()) {
             if (!volunteer.hasSkill(skill)) {
-                throw new IllegalArgumentException("Volunteer does not have the required skills for this com.example.nonprofitmanagementsystem.event.");
+                throw new IllegalArgumentException("Volunteer does not have the required skills for this event.");
             }
         }
         // Create a new assignment

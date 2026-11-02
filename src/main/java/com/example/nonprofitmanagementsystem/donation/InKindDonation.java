@@ -2,6 +2,7 @@ package com.example.nonprofitmanagementsystem.donation;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
 
 public class InKindDonation extends Donation{
     private List<DonatedItem> items;

@@ -19,7 +19,12 @@ public class VolunteerCertificate extends Document {
     public double getTotalHours() {return totalHours;}
 
     @Override
-    public String generateContent() {return "";}
+    public String generateContent() {
+        return "Volunteer Certificate\n"
+                + "Volunteer: " + volunteer.getFullName() + "\n"
+                + "Total hours: " + totalHours + "\n"
+                + "Issue date: " + issueDate;
+    }
 
     @Override
     public String getDocumentType() {return "VolunteerCertificate";}

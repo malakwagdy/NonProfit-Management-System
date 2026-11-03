@@ -20,7 +20,12 @@ public class TaxDocument extends Document {
     public double getTotalEligibleDonations() {return totalEligibleDonations;}
 
     @Override
-    public String generateContent() {return "";}
+    public String generateContent() {
+        return "Tax Document\n"
+                + "Donor: " + donor.getFullName() + "\n"
+                + "Tax year: " + taxYear + "\n"
+                + "Total eligible donations: " + totalEligibleDonations;
+    }
 
     @Override
     public String getDocumentType() {return "TaxDocument";}

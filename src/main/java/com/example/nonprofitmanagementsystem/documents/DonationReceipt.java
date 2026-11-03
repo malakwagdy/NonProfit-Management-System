@@ -16,7 +16,13 @@ public class DonationReceipt extends Document {
     public String getReceiptNumber() {return receiptNumber;}
 
     @Override
-    public String generateContent() {return "";}
+    public String generateContent() {
+        return "Donation Receipt\n"
+                + "Receipt number: " + receiptNumber + "\n"
+                + "Donor: " + donation.getDonor().getFullName() + "\n"
+                + "Amount: " + donation.getAmount() + "\n"
+                + "Date: " + donation.getDonationDate();
+    }
 
     @Override
     public String getDocumentType() {return "DonationReceipt";}

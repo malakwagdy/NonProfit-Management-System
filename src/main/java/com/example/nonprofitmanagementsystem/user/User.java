@@ -1,4 +1,4 @@
-package com.example.nonprofitmanagementsystem.UserOrgManagement;
+package com.example.nonprofitmanagementsystem.user;
 
 import com.example.nonprofitmanagementsystem.communication.NotificationChannel;
 
@@ -10,19 +10,19 @@ public abstract class User {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String passwordHash;
+    private String password;
     private String address;
     private LocalDateTime registrationDate;
     private boolean active;
     private NotificationChannel preferredChannel;
 
-    public User(int userId, String firstName, String lastName, String email, String phoneNumber, String passwordHash, String address) {
+    public User(int userId, String firstName, String lastName, String email, String phoneNumber, String password, String address) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.passwordHash = passwordHash;
+        this.password = password;
         this.address = address;
         this.preferredChannel = NotificationChannel.EMAIL;
         this.registrationDate = LocalDateTime.now();
@@ -71,12 +71,12 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddress() {
@@ -113,8 +113,18 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
-    public void changePassword(String newPasswordHash) {
-        this.passwordHash = newPasswordHash;
+
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
+
+
+    public void changePassword(String oldPassword, String newPassword) {
+        if (checkPassword(oldPassword)) {
+            this.password = newPassword;
+        } else {
+            throw new IllegalArgumentException("Incorrect old password");
+        }
     }
     public void deactivateAccount() {
         this.active = false;
@@ -122,4 +132,5 @@ public abstract class User {
     public void activateAccount() {
         this.active = true;
     }
+    public abstract UserRole getRole();
 }

@@ -1,7 +1,7 @@
 package com.example.nonprofitmanagementsystem.event;
 
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
+import com.example.nonprofitmanagementsystem.user.User;
 
 public class AttendeeEventObserver implements EventObserver {
     private EventRegistration registration;
@@ -10,6 +10,10 @@ public class AttendeeEventObserver implements EventObserver {
     public AttendeeEventObserver(EventRegistration registration, CommunicationManager communicationManager) {
         this.registration = registration;
         this.communicationManager = communicationManager;
+    }
+
+    public EventRegistration getRegistration() {
+        return registration;
     }
 
     @Override

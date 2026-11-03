@@ -1,7 +1,7 @@
 package com.example.nonprofitmanagementsystem.beneficiary;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Administrator;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Beneficiary;
+import com.example.nonprofitmanagementsystem.user.Administrator;
+import com.example.nonprofitmanagementsystem.user.Beneficiary;
 import java.time.LocalDateTime;
 
 public class ResourceDistribution {

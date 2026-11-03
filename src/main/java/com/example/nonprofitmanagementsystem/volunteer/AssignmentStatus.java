@@ -1,4 +1,4 @@
-package com.example.nonprofitmanagementsystem.VolunteerManagement;
+package com.example.nonprofitmanagementsystem.volunteer;
 
 public enum AssignmentStatus {
     ASSIGNED,

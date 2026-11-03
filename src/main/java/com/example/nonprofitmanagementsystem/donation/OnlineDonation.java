@@ -1,6 +1,6 @@
 package com.example.nonprofitmanagementsystem.donation;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
+import com.example.nonprofitmanagementsystem.user.Donor;
 
 public class OnlineDonation extends Donation {
     private String paymentPlatform;

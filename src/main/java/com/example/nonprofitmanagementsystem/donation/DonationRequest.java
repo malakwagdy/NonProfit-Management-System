@@ -1,6 +1,6 @@
 package com.example.nonprofitmanagementsystem.donation;
 import java.util.List;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
+import com.example.nonprofitmanagementsystem.user.Donor;
 
 public class DonationRequest {
     private DonationType type;

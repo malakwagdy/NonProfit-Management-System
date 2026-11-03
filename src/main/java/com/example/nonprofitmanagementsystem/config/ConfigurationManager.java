@@ -12,7 +12,16 @@ public class ConfigurationManager {
     private double taxDeductibleRate;
     private int reminderHoursBeforeEvent;
 
-    private ConfigurationManager() {}
+    private ConfigurationManager() {
+        organizationName = "Hope Foundation";
+        organizationEmail = "contact@hopefoundation.org";
+        organizationAddress = "";
+        defaultCurrency = "EGP";
+        defaultLanguage = "en";
+        receiptPrefix = "RCPT-";
+        taxDeductibleRate = 1.0;
+        reminderHoursBeforeEvent = 24;
+    }
 
     public static synchronized ConfigurationManager getInstance() {
         if (instance == null) {instance = new ConfigurationManager();}

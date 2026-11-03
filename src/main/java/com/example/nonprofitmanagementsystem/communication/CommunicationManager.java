@@ -1,7 +1,7 @@
 package com.example.nonprofitmanagementsystem.communication;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
+import com.example.nonprofitmanagementsystem.user.Donor;
+import com.example.nonprofitmanagementsystem.user.User;
 import com.example.nonprofitmanagementsystem.config.ConfigurationManager;
 import com.example.nonprofitmanagementsystem.donation.Donation;
 

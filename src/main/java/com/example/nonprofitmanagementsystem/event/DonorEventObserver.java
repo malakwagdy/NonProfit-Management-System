@@ -1,6 +1,6 @@
 package com.example.nonprofitmanagementsystem.event;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
+import com.example.nonprofitmanagementsystem.user.Donor;
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 
 public class DonorEventObserver implements EventObserver {
@@ -9,6 +9,10 @@ public class DonorEventObserver implements EventObserver {
     public DonorEventObserver(Donor donor, CommunicationManager communicationManager) {
         this.donor = donor;
         this.communicationManager = communicationManager;
+    }
+
+    public Donor getDonor() {
+        return donor;
     }
 
     @Override

@@ -1,19 +1,23 @@
 package com.example.nonprofitmanagementsystem.event;
 
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Volunteer;
-import com.example.nonprofitmanagementsystem.VolunteerManagement.AssignmentStatus;
-import com.example.nonprofitmanagementsystem.VolunteerManagement.volunteerAssignment;
+import com.example.nonprofitmanagementsystem.user.Volunteer;
+import com.example.nonprofitmanagementsystem.volunteer.AssignmentStatus;
+import com.example.nonprofitmanagementsystem.volunteer.VolunteerAssignment;
 
 public class VolunteerEventObserver implements EventObserver {
     private Volunteer volunteer;
-    private volunteerAssignment assignment;
+    private VolunteerAssignment assignment;
     private CommunicationManager communicationManager;
 
-    public VolunteerEventObserver(Volunteer volunteer, volunteerAssignment assignment, CommunicationManager communicationManager) {
+    public VolunteerEventObserver(Volunteer volunteer, VolunteerAssignment assignment, CommunicationManager communicationManager) {
         this.volunteer = volunteer;
         this.assignment = assignment;
         this.communicationManager = communicationManager;
+    }
+
+    public VolunteerAssignment getAssignment() {
+        return assignment;
     }
 
     @Override
@@ -21,6 +25,11 @@ public class VolunteerEventObserver implements EventObserver {
         // React to cancellation: update the volunteer's assignment
         if (event.getEventStatus() == EventStatus.CANCELLED) {
             assignment.updateStatus(AssignmentStatus.CANCELLED);
+        }
+
+        if (event.getEventStatus() == EventStatus.COMPLETED
+                && assignment.getStatus() != AssignmentStatus.CANCELLED) {
+            assignment.updateStatus(AssignmentStatus.COMPLETED);
         }
 
         String text = "Hello " + volunteer.getFullName() + ",\n"

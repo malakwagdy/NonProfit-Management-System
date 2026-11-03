@@ -1,9 +1,9 @@
 package com.example.nonprofitmanagementsystem.event;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
+import com.example.nonprofitmanagementsystem.user.User;
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Administrator;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Donor;
+import com.example.nonprofitmanagementsystem.user.Administrator;
+import com.example.nonprofitmanagementsystem.user.Donor;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -58,6 +58,15 @@ public class EventManager {
         return true;
     }
 
+    public boolean completeEvent(int eventId, Administrator admin) {
+        validateAdmin(admin);
+        Event event = getEventById(eventId);
+        if (event == null || isClosed(event) || event.getEventDate().isAfter(LocalDateTime.now())) {
+            return false; // can only complete events that have already happened
+        }
+        event.updateStatus(EventStatus.COMPLETED); // notifies observers
+        return true;
+    }
 
     public Event getEventById(int eventId) {
         for (Event event : events) {
@@ -130,7 +139,29 @@ public class EventManager {
         if (isClosed(event)) {
             throw new IllegalStateException("Event is cancelled or completed");
         }
+        if (findDonorObserver(event, donor) != null) {
+            throw new IllegalStateException("Donor is already subscribed to this event");
+        }
         event.addObserver(new DonorEventObserver(donor, communicationManager));
+    }
+
+    public void unsubscribeDonor(int eventId, Donor donor) {
+        Event event = findEventOrThrow(eventId);
+        DonorEventObserver observer = findDonorObserver(event, donor);
+        if (observer != null) observer.unsubscribe(event);
+    }
+
+    public boolean cancelRegistration(int eventId, int registrationId) {
+        Event event = findEventOrThrow(eventId);
+        if (!event.cancelRegistration(registrationId)) return false;
+        for (EventObserver observer : event.getObservers()) {
+            if (observer instanceof AttendeeEventObserver
+                    && ((AttendeeEventObserver) observer).getRegistration().getRegistrationId() == registrationId) {
+                observer.unsubscribe(event);
+                break;
+            }
+        }
+        return true;
     }
 
     public ArrayList<EventRegistration> getEventRegistrations(int eventId) {
@@ -139,6 +170,15 @@ public class EventManager {
             return new ArrayList<>();
         }
         return new ArrayList<>(event.getRegistrations());
+    }
+
+    private DonorEventObserver findDonorObserver(Event event, Donor donor) {
+        for (EventObserver observer : event.getObservers()) {
+            if (observer instanceof DonorEventObserver && ((DonorEventObserver) observer).getDonor() == donor) {
+                return (DonorEventObserver) observer;
+            }
+        }
+        return null;
     }
 
     // attendance

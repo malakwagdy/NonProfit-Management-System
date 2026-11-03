@@ -1,4 +1,4 @@
-package com.example.nonprofitmanagementsystem.UserOrgManagement;
+package com.example.nonprofitmanagementsystem.user;
 
 import com.example.nonprofitmanagementsystem.beneficiary.NeedCategory;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ public class Beneficiary extends User {
     private EligibilityStatus eligibilityStatus;
 
     public Beneficiary(int userId, String firstName, String lastName, String email,
-                       String phoneNumber, String passwordHash, String address, int familySize) {
-        super(userId, firstName, lastName, email, phoneNumber, passwordHash, address);
+                       String phoneNumber, String password, String address, int familySize) {
+        super(userId, firstName, lastName, email, phoneNumber, password, address);
         if (userId <= 0) {
             throw new IllegalArgumentException("User ID must be positive");
         }
@@ -59,5 +59,10 @@ public class Beneficiary extends User {
             throw new IllegalArgumentException("Eligibility status cannot be null");
         }
         eligibilityStatus = status;
+    }
+
+    @Override
+    public UserRole getRole() {
+        return UserRole.BENEFICIARY;
     }
 }

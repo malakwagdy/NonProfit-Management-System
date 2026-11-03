@@ -62,6 +62,9 @@ public class DonationManager {
         if (donation.getDonationType() == null) {
             throw new IllegalArgumentException("Donation type cannot be null");
         }
+        if (donation.getStatus() != DonationStatus.PENDING) {
+            return false; // already processed or rejected
+        }
 
         DonationStrategy strategy = strategies.get(donation.getDonationType());
         if (strategy == null) return false;

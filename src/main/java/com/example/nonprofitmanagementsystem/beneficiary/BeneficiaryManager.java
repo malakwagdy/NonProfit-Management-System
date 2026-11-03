@@ -1,8 +1,8 @@
 package com.example.nonprofitmanagementsystem.beneficiary;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Administrator;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Beneficiary;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.EligibilityStatus;
+import com.example.nonprofitmanagementsystem.user.Administrator;
+import com.example.nonprofitmanagementsystem.user.Beneficiary;
+import com.example.nonprofitmanagementsystem.user.EligibilityStatus;
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 import com.example.nonprofitmanagementsystem.event.Event;
 import java.util.ArrayList;

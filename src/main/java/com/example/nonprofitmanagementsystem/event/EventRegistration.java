@@ -2,7 +2,7 @@ package com.example.nonprofitmanagementsystem.event;
 
 
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
+import com.example.nonprofitmanagementsystem.user.User;
 
 import java.time.LocalDateTime;
 import java.util.EnumMap;

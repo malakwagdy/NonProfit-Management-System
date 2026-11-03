@@ -1,11 +1,11 @@
-package com.example.nonprofitmanagementsystem.UserOrgManagement;
+package com.example.nonprofitmanagementsystem.user;
 
 public class Donor extends User {
     String donationPreference;
     double totalDonated;
 
-    public Donor(int userId, String firstName, String lastName, String email, String phoneNumber, String passwordHash, String address) {
-        super(userId, firstName, lastName, email, phoneNumber, passwordHash, address);
+    public Donor(int userId, String firstName, String lastName, String email, String phoneNumber, String password, String address) {
+        super(userId, firstName, lastName, email, phoneNumber, password, address);
         this.donationPreference = "";
         this.totalDonated = 0.0;
     }
@@ -20,5 +20,9 @@ public class Donor extends User {
     }
     public void addToTotal(double totalDonated) {
         this.totalDonated += totalDonated;
+    }
+    @Override
+    public UserRole getRole() {
+        return UserRole.DONOR;
     }
 }

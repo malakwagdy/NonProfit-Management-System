@@ -1,4 +1,4 @@
-package com.example.nonprofitmanagementsystem.UserOrgManagement;
+package com.example.nonprofitmanagementsystem.user;
 
 import java.util.ArrayList;
 
@@ -8,8 +8,8 @@ public class Volunteer extends User {
     private ArrayList<String> preferredActivities;
     private double totalHoursVolunteered;
 
-    public Volunteer(int userId, String firstName, String lastName, String email, String phoneNumber, String passwordHash, String address) {
-        super(userId, firstName, lastName, email, phoneNumber, passwordHash, address);
+    public Volunteer(int userId, String firstName, String lastName, String email, String phoneNumber, String password, String address) {
+        super(userId, firstName, lastName, email, phoneNumber, password, address);
         this.availability = "";
         this.skills = new ArrayList<>();
         this.preferredActivities = new ArrayList<>();
@@ -50,5 +50,9 @@ public class Volunteer extends User {
     }
     public boolean hasSkill(String skill) {
         return skills.contains(skill);
+    }
+    @Override
+    public UserRole getRole() {
+        return UserRole.VOLUNTEER;
     }
 }

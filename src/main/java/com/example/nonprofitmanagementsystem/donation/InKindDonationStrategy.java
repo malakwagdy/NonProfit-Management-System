@@ -66,7 +66,7 @@ public class InKindDonationStrategy implements DonationStrategy{
                                     + item.getCondition()
                     );
             }
-            total += item.getEstimatedValue() * factor;
+            total += item.getTotalEstimatedValue() * factor;
         }
         return total;
     }

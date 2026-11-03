@@ -1,5 +1,5 @@
 package com.example.nonprofitmanagementsystem.documents;
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Volunteer;
+import com.example.nonprofitmanagementsystem.user.Volunteer;
 import java.time.LocalDate;
 
 public class VolunteerCertificate extends Document {

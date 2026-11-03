@@ -1,6 +1,6 @@
 package com.example.nonprofitmanagementsystem.beneficiary;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Beneficiary;
+import com.example.nonprofitmanagementsystem.user.Beneficiary;
 import com.example.nonprofitmanagementsystem.event.Event;
 import java.time.LocalDate;
 

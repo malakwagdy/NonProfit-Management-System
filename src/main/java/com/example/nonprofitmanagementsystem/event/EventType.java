@@ -5,5 +5,4 @@ public enum EventType {
     WORKSHOP,
     OUTREACH_PROGRAM,
     OTHER;
-
 }

@@ -1,7 +1,7 @@
 package com.example.nonprofitmanagementsystem.event;
 
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.User;
+import com.example.nonprofitmanagementsystem.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,12 +65,32 @@ public class Event implements EventSubject{
         return eventStatus;
     }
 
-    public int getRegisteredCount(){
-        return registrations.size();
+    public int getRegisteredCount() {
+        int count = 0;
+        for (EventRegistration r : registrations)
+            if (r.getAttendanceStatus() != AttendanceStatus.CANCELLED) count++;
+        return count;
     }
 
-    public boolean isFull(){
-        return registrations.size() == capacity;
+    public ArrayList<EventObserver> getObservers() {
+        return new ArrayList<>(observers);
+    }
+
+//    public boolean isFull(){
+//        if(eventStatus == EventStatus.CANCELLED || eventStatus == EventStatus.COMPLETED) return true;
+//        boolean result = registrations.size() == capacity;
+//        if(result)
+//            updateStatus(EventStatus.FULL);
+//        return result;
+//    }
+
+    public boolean isFull() {
+        return getRegisteredCount() >= capacity;
+    }
+
+    private void refreshCapacityStatus() {
+        if (eventStatus != EventStatus.SCHEDULED && eventStatus != EventStatus.FULL) return;
+        eventStatus = isFull() ? EventStatus.FULL : EventStatus.SCHEDULED;
     }
 
     public void addRequiredSkill(String skill){
@@ -119,13 +139,24 @@ public class Event implements EventSubject{
 
         // 5. Store it and return it
         registrations.add(registration);
+        refreshCapacityStatus();
         return registration;
     }
 
     public boolean cancelRegistration(int registrationId) {
         for (EventRegistration r : registrations) {
-            if (r.getRegistrationId() == registrationId) {
-                registrations.remove(r);
+            if (r.getRegistrationId() == registrationId && r.getAttendanceStatus() != AttendanceStatus.CANCELLED) {
+                r.cancel();
+                refreshCapacityStatus();
+//                for (EventObserver observer : observers) {
+//                    if (observer instanceof AttendeeEventObserver) {
+//                        AttendeeEventObserver attendeeObserver = (AttendeeEventObserver) observer;
+//                        if (attendeeObserver.getRegistration().getRegistrationId() == registrationId) {
+//                            attendeeObserver.unsubscribe(this);
+//                            break;
+//                        }
+//                    }
+//                }
                 return true;
             }
         }

@@ -1,11 +1,11 @@
-package com.example.nonprofitmanagementsystem.VolunteerManagement;
+package com.example.nonprofitmanagementsystem.volunteer;
 
-import com.example.nonprofitmanagementsystem.UserOrgManagement.Volunteer;
+import com.example.nonprofitmanagementsystem.user.Volunteer;
 import com.example.nonprofitmanagementsystem.event.Event;
 
 import java.time.LocalDateTime;
 
-public class volunteerAssignment {
+public class VolunteerAssignment {
     private int assignmentId;
     private Volunteer volunteer;
     private Event event;
@@ -14,14 +14,14 @@ public class volunteerAssignment {
     private double hoursCompleted;
     private AssignmentStatus status;
 
-    public volunteerAssignment(int assignmentId, Volunteer volunteer, Event event, String taskDescription, LocalDateTime assignmentDate) {
+    public VolunteerAssignment(int assignmentId, Volunteer volunteer, Event event, String taskDescription, LocalDateTime assignmentDate) {
         this.assignmentId = assignmentId;
         this.volunteer = volunteer;
         this.event = event;
         this.taskDescription = taskDescription;
         this.assignmentDate = assignmentDate;
         this.hoursCompleted = 0.0;
-        // this.status = AssignmentStatus.PENDING;
+        this.status = AssignmentStatus.ASSIGNED;
     }
     public int getAssignmentId() {
         return assignmentId;

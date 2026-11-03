@@ -16,11 +16,13 @@ public class BeneficiaryManager {
     private List<ResourceDistribution> distributions = new ArrayList<>();
     private List<ImpactAssessment> assessments = new ArrayList<>();
     private CommunicationManager communicationManager;
+    private UserManager userManager;
     private int nextDistributionId = 1;
     private int nextAssessmentId = 1;
 
-    public BeneficiaryManager(CommunicationManager communicationManager) {
+    public BeneficiaryManager(CommunicationManager communicationManager, UserManager userManager) {
         this.communicationManager = communicationManager;
+        this.userManager = userManager;
     }
 
     public void registerBeneficiary(Beneficiary beneficiary) {
@@ -33,7 +35,7 @@ public class BeneficiaryManager {
         Beneficiary beneficiary = findBeneficiaryById(userId);
         if (beneficiary == null) return false;
         beneficiary.deactivateAccount();
-        UserManager.getInstance().save(beneficiary);
+        userManager.save(beneficiary);
         return true;
     }
 
@@ -65,7 +67,7 @@ public class BeneficiaryManager {
         Beneficiary beneficiary = findBeneficiaryById(beneficiaryId);
         if (beneficiary == null) throw new IllegalArgumentException("Beneficiary not found");
         beneficiary.updateEligibilityStatus(status);
-        UserManager.getInstance().save(beneficiary);
+        userManager.save(beneficiary);
     }
 
     public void addResource(Resource resource) {

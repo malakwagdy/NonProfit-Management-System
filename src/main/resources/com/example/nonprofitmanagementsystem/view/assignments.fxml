@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.nonprofitmanagementsystem.controller.AssignmentsController">
+    <Label text="My Assignments" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+    <Label fx:id="totalHoursLabel"/>
+    <Label text="Administrators assign volunteers to events. Keep your availability and skills up to date in My Profile."
+           wrapText="true"/>
+
+    <TableView fx:id="assignmentsTable" VBox.vgrow="ALWAYS">
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN"/>
+        </columnResizePolicy>
+        <placeholder>
+            <Label text="You have no assignments yet."/>
+        </placeholder>
+        <columns>
+            <TableColumn fx:id="eventColumn" text="Event" prefWidth="190"/>
+            <TableColumn fx:id="dateColumn" text="Date" prefWidth="140"/>
+            <TableColumn fx:id="taskColumn" text="Task" prefWidth="200"/>
+            <TableColumn fx:id="hoursColumn" text="Hours" prefWidth="70"/>
+            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>

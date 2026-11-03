@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.nonprofitmanagementsystem.controller.ProfileController">
+    <VBox spacing="10">
+        <Label text="My Profile" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+
+        <Label text="Personal details" style="-fx-font-weight: bold;"/>
+        <GridPane hgap="10" vgap="8">
+            <Label text="First name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="firstNameField" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Last name" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="lastNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Email" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="emailField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            <Label text="Phone" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="phoneField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Address" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="addressField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="Member since" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <Label fx:id="registeredLabel" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        </GridPane>
+        <Button text="Save details" onAction="#onSaveDetails"/>
+        <Label fx:id="detailsMessage" wrapText="true"/>
+
+        <Separator/>
+        <Label text="Change password" style="-fx-font-weight: bold;"/>
+        <GridPane hgap="10" vgap="8">
+            <Label text="Current password" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="oldPasswordField" prefWidth="260" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="New password" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="newPasswordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Confirm new password" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        </GridPane>
+        <Button text="Change password" onAction="#onChangePassword"/>
+        <Label fx:id="passwordMessage" wrapText="true"/>
+
+        <!-- Only the box for the user's role is shown -->
+        <VBox fx:id="donorBox" spacing="8" visible="false" managed="false">
+            <Separator/>
+            <Label text="Donor details" style="-fx-font-weight: bold;"/>
+            <Label fx:id="totalDonatedLabel"/>
+        </VBox>
+
+        <VBox fx:id="volunteerBox" spacing="8" visible="false" managed="false">
+            <Separator/>
+            <Label text="Volunteer details" style="-fx-font-weight: bold;"/>
+            <Label fx:id="totalHoursLabel"/>
+            <GridPane hgap="10" vgap="8">
+                <Label text="Availability" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="availabilityField" prefWidth="260" promptText="e.g. Weekends, evenings"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Skills" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="skillsField" promptText="Comma separated, e.g. Teaching, Driving"
+                           GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            </GridPane>
+            <Button text="Save volunteer details" onAction="#onSaveVolunteerDetails"/>
+            <Label fx:id="volunteerMessage" wrapText="true"/>
+        </VBox>
+
+        <VBox fx:id="beneficiaryBox" spacing="8" visible="false" managed="false">
+            <Separator/>
+            <Label text="Beneficiary details" style="-fx-font-weight: bold;"/>
+            <Label fx:id="familySizeLabel"/>
+            <Label fx:id="eligibilityLabel"/>
+            <Label fx:id="needsLabel" wrapText="true"/>
+        </VBox>
+    </VBox>
+</ScrollPane>

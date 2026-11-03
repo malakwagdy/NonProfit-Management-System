@@ -13,14 +13,16 @@ public class DonationManager {
     private Map<DonationType, DonationStrategy> strategies;
     private List<Donation> donations;
     private final CommunicationManager communicationManager;
+    private final UserManager userManager;
 
-    public DonationManager(CommunicationManager communicationManager) {
-        if (communicationManager == null) {
+    public DonationManager(CommunicationManager communicationManager, UserManager userManager) {
+        if (communicationManager == null || userManager == null) {
             throw new IllegalArgumentException(
-                    "Communication manager cannot be null"
+                    "Communication manager and user manager cannot be null"
             );
         }
         this.communicationManager = communicationManager;
+        this.userManager = userManager;
         this.creators = new EnumMap<>(DonationType.class);
         this.strategies = new EnumMap<>(DonationType.class);
         this.donations = new ArrayList<>();
@@ -77,7 +79,7 @@ public class DonationManager {
         boolean success = strategy.processDonation(donation);
         if (success) {
             donation.getDonor().addToTotal(donation.getAmount());
-            UserManager.getInstance().save(donation.getDonor());
+            userManager.save(donation.getDonor());
             communicationManager.sendDonationConfirmation(donation);
         }
         return success;

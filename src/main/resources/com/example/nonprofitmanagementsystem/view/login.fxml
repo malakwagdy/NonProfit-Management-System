@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.nonprofitmanagementsystem.controller.LoginController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label fx:id="titleLabel" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    <Label text="Log in to your account"/>
+
+    <VBox spacing="5" maxWidth="300">
+        <Label text="Email"/>
+        <TextField fx:id="emailField"/>
+        <Label text="Password"/>
+        <PasswordField fx:id="passwordField" onAction="#onLogin"/>
+    </VBox>
+
+    <Button text="Log in" defaultButton="true" onAction="#onLogin" prefWidth="300"/>
+    <Label fx:id="messageLabel" style="-fx-text-fill: red;" wrapText="true" maxWidth="300"/>
+    <Hyperlink text="Don't have an account? Sign up" onAction="#onGoToSignUp"/>
+</VBox>

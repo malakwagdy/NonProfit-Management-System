@@ -50,5 +50,5 @@ mvnw
 mvnw.cmd
 pom.xml
 
-src/main/resources
-src/main/java/module-info.java
+.env
+notifications.log

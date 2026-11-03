@@ -172,6 +172,22 @@ public class EventManager {
         return new ArrayList<>(event.getRegistrations());
     }
 
+    public boolean isDonorSubscribed(int eventId, Donor donor) {
+        Event event = getEventById(eventId);
+        return event != null && findDonorObserver(event, donor) != null;
+    }
+
+    // Returns the participant's non-cancelled registration for this event, or null
+    public EventRegistration findActiveRegistration(int eventId, User participant) {
+        for (EventRegistration registration : getEventRegistrations(eventId)) {
+            if (registration.getParticipant() == participant
+                    && registration.getAttendanceStatus() != AttendanceStatus.CANCELLED) {
+                return registration;
+            }
+        }
+        return null;
+    }
+
     private DonorEventObserver findDonorObserver(Event event, Donor donor) {
         for (EventObserver observer : event.getObservers()) {
             if (observer instanceof DonorEventObserver && ((DonorEventObserver) observer).getDonor() == donor) {

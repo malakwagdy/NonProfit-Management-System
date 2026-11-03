@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml">
+    <Label text="Admin Panel" style="-fx-font-size: 18; -fx-font-weight: bold;"/>
+    <Label text="Administrator pages (managing users, events, volunteers and beneficiaries) will be added in phase 2."
+           wrapText="true"/>
+</VBox>

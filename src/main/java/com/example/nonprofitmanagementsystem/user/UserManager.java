@@ -8,20 +8,14 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class UserManager {
-    private static UserManager instance;
     private final DatabaseManager db = DatabaseManager.getInstance();
     private final Map<UserRole, UserCreator> creators = new EnumMap<>(UserRole.class);
 
-    private UserManager() {
+    public UserManager() {
         registerCreator(new DonorCreator());
         registerCreator(new VolunteerCreator());
         registerCreator(new BeneficiaryCreator());
         registerCreator(new AdministratorCreator());
-    }
-
-    public static synchronized UserManager getInstance() {
-        if (instance == null) instance = new UserManager();
-        return instance;
     }
 
     public void registerCreator(UserCreator creator) {
@@ -67,6 +61,13 @@ public class UserManager {
         if (existing != null && existing.getUserId() != user.getUserId())
             throw new IllegalArgumentException("Email is already registered");
         user.updateProfile(firstName, lastName, normalizeEmail(email), phone, address);
+        save(user);
+    }
+
+    public void changePassword(User user, String oldPassword, String newPassword) {
+        if (newPassword == null || newPassword.length() < 8)
+            throw new IllegalArgumentException("Password must be at least 8 characters");
+        user.changePassword(oldPassword, newPassword);
         save(user);
     }
 

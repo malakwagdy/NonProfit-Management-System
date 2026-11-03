@@ -11,16 +11,19 @@ import com.example.nonprofitmanagementsystem.event.EventObserver;
 import com.example.nonprofitmanagementsystem.event.VolunteerEventObserver;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class VolunteerManager {
     private ArrayList<Volunteer> Volunteers;
     private ArrayList<VolunteerAssignment> assignments;
     private CommunicationManager communicationManager;
+    private UserManager userManager;
     private static int nextAssignmentId = 1;
 
-    public VolunteerManager(CommunicationManager communicationManager) {
+    public VolunteerManager(CommunicationManager communicationManager, UserManager userManager) {
         this.Volunteers = new ArrayList<>();
         this.communicationManager = communicationManager;
+        this.userManager = userManager;
         this.assignments = new ArrayList<>();
     }
     public void registerVolunteer(Volunteer Volunteer) {
@@ -28,6 +31,20 @@ public class VolunteerManager {
     }
     public void removeVolunteer(Volunteer Volunteer) {
         Volunteers.remove(Volunteer);
+    }
+    // Replaces the volunteer's availability and skills, then saves them to the database
+    public void updateVolunteerDetails(Volunteer volunteer, String availability, List<String> skills) {
+        volunteer.updateAvailability(availability == null ? "" : availability.trim());
+        for (String skill : new ArrayList<>(volunteer.getSkills())) {
+            volunteer.removeSkill(skill);
+        }
+        for (String skill : skills) {
+            String trimmed = skill.trim();
+            if (!trimmed.isEmpty() && !volunteer.hasSkill(trimmed)) {
+                volunteer.addSkill(trimmed);
+            }
+        }
+        userManager.save(volunteer);
     }
     public ArrayList<Volunteer> getVolunteers() {
         return Volunteers;
@@ -131,7 +148,7 @@ public class VolunteerManager {
         if (assignment.getStatus() == AssignmentStatus.CANCELLED)
             throw new IllegalStateException("Cannot record hours for a cancelled assignment.");
         assignment.recordHoursCompleted(hours);
-        UserManager.getInstance().save(assignment.getVolunteer());
+        userManager.save(assignment.getVolunteer());
         communicationManager.notifyUser(assignment.getVolunteer(), "Volunteer Hours Recorded", "You have recorded " + hours + " hours for the event: " + assignment.getEvent().getEventName());
     }
     public ArrayList<VolunteerAssignment> getAssignmentsForVolunteer(Volunteer volunteer) {

@@ -8,7 +8,7 @@ public class ConfigurationManager {
     private String organizationAddress;
     private String defaultCurrency;
     private String defaultLanguage;
-    private String receiptPrefix;
+    private String receiptPrefix="R-";
     private double taxDeductibleRate;
     private int reminderHoursBeforeEvent;
 

@@ -17,6 +17,14 @@ public class Administrator extends User {
         return accessLevel;
     }
 
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
     @Override
     public UserRole getRole() {
         return UserRole.ADMINISTRATOR;

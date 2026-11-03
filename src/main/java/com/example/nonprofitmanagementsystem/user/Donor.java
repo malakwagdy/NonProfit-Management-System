@@ -21,6 +21,9 @@ public class Donor extends User {
     public void addToTotal(double totalDonated) {
         this.totalDonated += totalDonated;
     }
+    public void setTotalDonated(double totalDonated) {
+        this.totalDonated = totalDonated;
+    }
     @Override
     public UserRole getRole() {
         return UserRole.DONOR;

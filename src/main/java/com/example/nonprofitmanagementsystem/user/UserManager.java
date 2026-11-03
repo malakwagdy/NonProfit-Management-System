@@ -1,24 +1,22 @@
 package com.example.nonprofitmanagementsystem.user;
 
+import com.example.nonprofitmanagementsystem.config.DatabaseManager;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class UserManager {
     private static UserManager instance;
-    private final ArrayList<User> users = new ArrayList<>();
+    private final DatabaseManager db = DatabaseManager.getInstance();
     private final Map<UserRole, UserCreator> creators = new EnumMap<>(UserRole.class);
-    private static int nextUserId = 1;
 
     private UserManager() {
         registerCreator(new DonorCreator());
         registerCreator(new VolunteerCreator());
         registerCreator(new BeneficiaryCreator());
         registerCreator(new AdministratorCreator());
-    }
-
-    private static int generateUserId() {
-        return nextUserId++;
     }
 
     public static synchronized UserManager getInstance() {
@@ -65,42 +63,85 @@ public class UserManager {
         if (email == null || !email.matches("[^@\\s]+@[^@\\s]+\\.[^@\\s]+"))
             throw new IllegalArgumentException("Invalid email address");
         User existing = findByEmail(email);
-        if (existing != null && existing != user) throw new IllegalArgumentException("Email is already registered");
-        user.updateProfile(firstName, lastName, email, phone, address);
+        // Compare ids, not objects: every database fetch returns a new object
+        if (existing != null && existing.getUserId() != user.getUserId())
+            throw new IllegalArgumentException("Email is already registered");
+        user.updateProfile(firstName, lastName, normalizeEmail(email), phone, address);
+        save(user);
     }
 
     public User findByEmail(String email) {
         if (email == null) return null;
-        for (User u : users)
-            if (u.getEmail().equalsIgnoreCase(email.trim())) return u;
-        return null;
+        try {
+            return db.getUserByEmail(normalizeEmail(email));
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error", e);
+        }
     }
 
     public ArrayList<User> getUsersByRole(UserRole role) {
-        ArrayList<User> result = new ArrayList<>();
-        for (User u : users) {
-            if (u.getRole() == role) result.add(u);
+        try {
+            return new ArrayList<>(db.getUsersByRole(role));
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error", e);
         }
-        return result;
     }
+
     public User findById(int userId) {
-        for (User u : users) {
-            if (u.getUserId() == userId) return u;
+        try {
+            return db.getUserById(userId);
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error", e);
         }
-        return null;
     }
-    public ArrayList<User> getAllUsers() { return new ArrayList<>(users); }
+
+    public ArrayList<User> getAllUsers() {
+        try {
+            return new ArrayList<>(db.getAllUsers());
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error", e);
+        }
+    }
+
+    // Other managers call this after changing a user (donation total, hours, eligibility...)
+    public void save(User user) {
+        try {
+            db.updateUser(user);
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error", e);
+        }
+    }
+
     public void deactivateUser(int userId, Administrator admin) {
         if (admin == null || !admin.isActive())
             throw new SecurityException("Only an active administrator can deactivate users");
         User user = findById(userId);
-        if (user != null) user.deactivateAccount();
+        if (user != null) {
+            user.deactivateAccount();
+            save(user);
+        }
     }
 
+    public void activateUser(int userId, Administrator admin) {
+        if (admin == null || !admin.isActive())
+            throw new SecurityException("Only an active administrator can activate users");
+        User user = findById(userId);
+        if (user != null) {
+            user.activateAccount();
+            save(user);
+        }
+    }
+
+    // The user is created with id 0; saveUser sets the real id from the database.
     private User register(UserCreator creator, SignUpRequest r) {
         validate(r);
-        User user = creator.newUser(generateUserId(), r);
-        users.add(user);
+        User user = creator.newUser(0, r);
+        user.setEmail(normalizeEmail(user.getEmail()));
+        try {
+            db.saveUser(user);
+        } catch (SQLException e) {
+            throw new RuntimeException("Database error", e);
+        }
         return user;
     }
 
@@ -116,11 +157,9 @@ public class UserManager {
             throw new IllegalArgumentException("Family size must be positive");
     }
 
-    public void activateUser(int userId, Administrator admin) {
-        if (admin == null || !admin.isActive())
-            throw new SecurityException("Only an active administrator can activate users");
-        User user = findById(userId);
-        if (user != null) user.activateAccount();
+    // Store and look up emails the same way, so "Sara@X.com" and "sara@x.com" match
+    private String normalizeEmail(String email) {
+        return email.trim().toLowerCase();
     }
 
     private boolean isBlank(String s) { return s == null || s.isBlank(); }

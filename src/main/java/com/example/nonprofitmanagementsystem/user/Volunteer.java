@@ -42,6 +42,9 @@ public class Volunteer extends User {
     public void addToTotalHours(double hours) {
         this.totalHoursVolunteered += hours;
     }
+    public void setTotalHoursVolunteered(double hours) {
+        this.totalHoursVolunteered = hours;
+    }
     public ArrayList<String> getSkills() {
         return skills;
     }

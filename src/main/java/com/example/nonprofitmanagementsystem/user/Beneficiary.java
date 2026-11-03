@@ -12,7 +12,7 @@ public class Beneficiary extends User {
     public Beneficiary(int userId, String firstName, String lastName, String email,
                        String phoneNumber, String password, String address, int familySize) {
         super(userId, firstName, lastName, email, phoneNumber, password, address);
-        if (userId <= 0) {
+        if (userId < 0) {
             throw new IllegalArgumentException("User ID must be positive");
         }
         updateFamilySize(familySize);

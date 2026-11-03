@@ -2,6 +2,7 @@ package com.example.nonprofitmanagementsystem.volunteer;
 
 import com.example.nonprofitmanagementsystem.event.EventStatus;
 import com.example.nonprofitmanagementsystem.user.Administrator;
+import com.example.nonprofitmanagementsystem.user.UserManager;
 import com.example.nonprofitmanagementsystem.user.Volunteer;
 
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
@@ -130,6 +131,7 @@ public class VolunteerManager {
         if (assignment.getStatus() == AssignmentStatus.CANCELLED)
             throw new IllegalStateException("Cannot record hours for a cancelled assignment.");
         assignment.recordHoursCompleted(hours);
+        UserManager.getInstance().save(assignment.getVolunteer());
         communicationManager.notifyUser(assignment.getVolunteer(), "Volunteer Hours Recorded", "You have recorded " + hours + " hours for the event: " + assignment.getEvent().getEventName());
     }
     public ArrayList<VolunteerAssignment> getAssignmentsForVolunteer(Volunteer volunteer) {

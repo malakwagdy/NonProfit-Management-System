@@ -3,6 +3,7 @@ package com.example.nonprofitmanagementsystem.beneficiary;
 import com.example.nonprofitmanagementsystem.user.Administrator;
 import com.example.nonprofitmanagementsystem.user.Beneficiary;
 import com.example.nonprofitmanagementsystem.user.EligibilityStatus;
+import com.example.nonprofitmanagementsystem.user.UserManager;
 import com.example.nonprofitmanagementsystem.communication.CommunicationManager;
 import com.example.nonprofitmanagementsystem.event.Event;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class BeneficiaryManager {
         Beneficiary beneficiary = findBeneficiaryById(userId);
         if (beneficiary == null) return false;
         beneficiary.deactivateAccount();
+        UserManager.getInstance().save(beneficiary);
         return true;
     }
 
@@ -63,6 +65,7 @@ public class BeneficiaryManager {
         Beneficiary beneficiary = findBeneficiaryById(beneficiaryId);
         if (beneficiary == null) throw new IllegalArgumentException("Beneficiary not found");
         beneficiary.updateEligibilityStatus(status);
+        UserManager.getInstance().save(beneficiary);
     }
 
     public void addResource(Resource resource) {
